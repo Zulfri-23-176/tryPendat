@@ -4,4 +4,4 @@
 format: jb-book
 root: intro
 chapters:
-- file: About_me
+  - file: About_Me
