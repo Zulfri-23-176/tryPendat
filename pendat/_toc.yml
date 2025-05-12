@@ -9,3 +9,4 @@ chapters:
   - file: LOF
   - file: NaiveBayes.ipynb
   - file: UTS_Pendat
+  - file: K-Means
