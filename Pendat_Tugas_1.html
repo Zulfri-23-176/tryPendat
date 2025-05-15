@@ -1,0 +1,1585 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Understanding &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Pendat_Tugas_1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Local Outlier Factor (LOF)" href="LOF.html" />
+    <link rel="prev" title="About Me" href="About_Me.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/data-mining.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/data-mining.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="About_Me.html">About Me</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Understanding</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NaiveBayes.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Pendat.html">Ujian Tengah Semester</a></li>
+<li class="toctree-l1"><a class="reference internal" href="K-Means.html">K-Means Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPendat_Tugas_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Pendat_Tugas_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Understanding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-pada-data-mining"><strong>Tipe Data pada Data Mining</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-nominal">1. Data Nominal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-ordinal">2. Data Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-biner">3. Data Biner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-biner"><strong>Tipe Data Biner:</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-numerik">4. Data Numerik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-interval-scaled-data"><strong>A. Interval-Scaled Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-ratio-scaled-data">B. Ratio-Scaled Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data"><strong>Pengumpulan Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data-dari-mysql">Preview data dari MySQL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data-dari-postgresql">Preview data dari PostgreSQL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-penggabungan-data-yang-sudah-diambil">Proses penggabungan data yang sudah diambil</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data"><strong>Ekplorasi Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">Statistik Deskriptif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiasai-distribusi-data-yang-digabungkan">Visualiasai distribusi data yang digabungkan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-masalah-data"><strong>Identifikasi Masalah Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebab-outlier">Penyebab Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dampak-outlier">Dampak Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-deteksi-outlier">Pentingnya Deteksi Outlier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prinsip-kerja-knn">Prinsip Kerja KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keunggulan-knn">Keunggulan KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan-knn">Kekurangan KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-untuk-deteksi-outlier">KNN untuk Deteksi Outlier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-deteksi-outlier-menggunakan-knn">Proses Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data">Persiapan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inisialisasi-model-knn">Inisialisasi Model KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak">Menghitung Jarak</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-outlier">Menentukan Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi">Visualisasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-bersih">Data Bersih</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-understanding">
+<h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<p>Data Understanding adalah proses eksplorasi awal untuk memahami karakteristik data, struktur, dan kualitasnya. Pada tahap ini, kita mengevaluasi apakah data cukup untuk dianalisis atau perlu dibersihkan dan ditambah.</p>
+<p>Tujuan utama dari data understanding adalah:</p>
+<ul class="simple">
+<li><p>Memahami Konteks Data: Mengetahui dari mana data berasal, apa arti setiap variabel, dan bagaimana hubungan antarvariabel.</p></li>
+<li><p>Mendeteksi Masalah Data: Mengidentifikasi missing values, outliers, noise, atau inkonsistensi dalam data.</p></li>
+<li><p>Menilai Kualitas Data: Memastikan bahwa data cukup berkualitas untuk digunakan dalam analisis. Hal ini meliputi pemeriksaan akurasi, kelengkapan, dan relevansi data.</p></li>
+<li><p>Menentukan Arah Analisis: Berdasarkan pemahaman awal, peneliti dapat merumuskan hipotesis atau menentukan teknik data mining yang tepat.</p></li>
+</ul>
+<p>Data Understanding adalah tahap awal dalam analisis data, di mana kita berusaha memahami karakteristik data yang kita miliki sebelum menggunakannya untuk pengolahan lebih lanjut. Berikut adalah penjelasan setiap langkahnya:</p>
+<p>1.<strong>Pengumpulan Data</strong></p>
+<p>Langkah pertama adalah mengumpulkan data dari berbagai sumber. Data ini bisa berasal dari file, database, atau sistem lain. Dan harus memastikan semua data yang dikumpulkan sesuai tujuan analisis|.</p>
+<p>2.<strong>Sampling</strong></p>
+<p>Jika data yang dikumpulkan terlalu besar, kita tidak selalu harus langsung melihat semuanya. Kita bisa mengambil sebagian kecil dari data yang tetap mewakili keseluruhan. Ini membantu kita memahami isi data lebih cepat tanpa harus bekerja dengan seluruh dataset sejak awal.</p>
+<p>3.<strong>Profiling Data</strong></p>
+<p>Setelah memiliki data, kita perlu melihat strukturnya. Kita bisa mengecek berapa banyak kolom yang ada, jenis informasi apa saja yang disimpan, apakah ada nilai yang hilang, atau apakah ada pola tertentu dalam data. Tujuannya adalah mendapatkan gambaran awal tentang bentuk dan isi data yang kita miliki.</p>
+<p>4.<strong>Korelasi dan Asosiasi</strong></p>
+<p>Di tahap ini, kita mulai melihat apakah ada hubungan antara berbagai bagian data. Misalnya, apakah panjang kelopak bunga berhubungan dengan lebar kelopak? Jika ada pola atau hubungan tertentu, ini bisa memberikan wawasan lebih dalam tentang bagaimana data saling berhubungan.</p>
+<p>5.<strong>Eksplorasi Data</strong></p>
+<p>Setelah memahami hubungan dalam data, kita bisa membuat berbagai tampilan atau gambar yang membantu kita melihat pola dengan lebih jelas. Misalnya, dengan menggambarkan bagaimana ukuran bunga berbeda untuk setiap jenisnya, kita bisa lebih mudah memahami karakteristik masing-masing kelompok dalam data.</p>
+<p>6.<strong>Identifikasi Masalah Data</strong></p>
+<p>Tidak semua data yang dikumpulkan sempurna. Bisa saja ada data yang hilang, angka yang terlalu besar atau kecil dibandingkan normal, atau ada entri yang muncul lebih dari sekali. Dalam langkah ini, kita mencari dan mencatat masalah-masalah yang ada dalam data agar bisa diperbaiki sebelum melangkah ke tahap berikutnya.</p>
+<p>7.<strong>Validasi Data</strong></p>
+<p>Terakhir, sebelum menggunakan data untuk analisis lebih lanjut, kita perlu memastikan bahwa semuanya sudah sesuai dengan yang kita harapkan. Kita bisa memeriksa apakah jenis data sudah benar, apakah semua informasi yang penting tersedia, dan apakah tidak ada kesalahan yang akan mengganggu proses berikutnya.</p>
+</section>
+<section id="tipe-data-pada-data-mining">
+<h1><strong>Tipe Data pada Data Mining</strong><a class="headerlink" href="#tipe-data-pada-data-mining" title="Link to this heading">#</a></h1>
+<p>Dalam data mining, data dapat dikategorikan berdasarkan sifat dan karakteristiknya. Berikut adalah tipe-tipe data yang lebih spesifik:</p>
+<section id="data-nominal">
+<h2>1. Data Nominal<a class="headerlink" href="#data-nominal" title="Link to this heading">#</a></h2>
+<p>Data nominal adalah data yang hanya berupa label atau kategori tanpa adanya hubungan urutan atau ranking di antara nilai-nilainya. Data ini tidak bisa dibandingkan lebih besar atau lebih kecil dan hanya bisa dibedakan.</p>
+<p><strong>Contoh Data Nominal:</strong></p>
+<ul class="simple">
+<li><p><strong>Jenis kelamin</strong> → {Laki-laki, Perempuan}</p></li>
+<li><p><strong>Warna favorit</strong> → {Merah, Biru, Hijau}</p></li>
+<li><p><strong>Kota kelahiran</strong> → {Jakarta, Surabaya, Bandung}</p></li>
+<li><p><strong>Merek mobil</strong> → {Toyota, Honda, Suzuki}</p></li>
+</ul>
+<p>💡 <strong>Catatan:</strong></p>
+<ul class="simple">
+<li><p>Data nominal bisa dikodekan menjadi angka (misal: Laki-laki = 0, Perempuan = 1), tapi angka ini tidak memiliki makna matematis.</p></li>
+<li><p>Operasi matematis seperti penjumlahan dan pengurangan tidak bisa dilakukan pada data nominal.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-ordinal">
+<h2>2. Data Ordinal<a class="headerlink" href="#data-ordinal" title="Link to this heading">#</a></h2>
+<p>Data ordinal adalah data yang memiliki urutan atau ranking, tetapi selisih antar nilai tidak bisa diukur dengan pasti. Perbedaan antar kategori mungkin tidak selalu sama.</p>
+<p><strong>Contoh Data Ordinal:</strong></p>
+<ul class="simple">
+<li><p><strong>Tingkat kepuasan pelanggan</strong> → {Sangat Puas, Puas, Netral, Tidak Puas, Sangat Tidak Puas}</p></li>
+<li><p><strong>Tingkat pendidikan</strong> → {SD, SMP, SMA, Sarjana, Magister, Doktor}</p></li>
+<li><p><strong>Peringkat dalam lomba</strong> → {Juara 1, Juara 2, Juara 3}</p></li>
+</ul>
+<p>💡 <strong>Catatan:</strong></p>
+<ul class="simple">
+<li><p>Data ordinal bisa diurutkan, tapi tidak bisa dilakukan operasi matematis seperti penjumlahan atau pengurangan.</p></li>
+<li><p>Misalnya, selisih antara “Puas” dan “Netral” belum tentu sama dengan selisih antara “Netral” dan “Tidak Puas”.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-biner">
+<h2>3. Data Biner<a class="headerlink" href="#data-biner" title="Link to this heading">#</a></h2>
+<p>Data biner adalah data yang hanya memiliki dua kemungkinan nilai (0 atau 1, Ya atau Tidak, Benar atau Salah).</p>
+<p><strong>Contoh Data Biner:</strong></p>
+<ul class="simple">
+<li><p><strong>Status pernikahan</strong> → {Menikah = 1, Belum Menikah = 0}</p></li>
+<li><p><strong>Lulus ujian atau tidak</strong> → {Lulus = 1, Tidak Lulus = 0}</p></li>
+<li><p><strong>Apakah pasien memiliki penyakit tertentu?</strong> → {Ya = 1, Tidak = 0}</p></li>
+</ul>
+<section id="tipe-data-biner">
+<h3><strong>Tipe Data Biner:</strong><a class="headerlink" href="#tipe-data-biner" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Biner Simetris</strong> → Kedua kategori memiliki bobot yang sama.</p>
+<ul>
+<li><p>Contoh: Jenis kelamin (Laki-laki atau Perempuan).</p></li>
+</ul>
+</li>
+<li><p><strong>Biner Asimetris</strong> → Salah satu kategori lebih penting daripada yang lain.</p>
+<ul>
+<li><p>Contoh: Dalam diagnosis penyakit, “Ada penyakit” lebih penting dibandingkan “Tidak ada penyakit”.</p></li>
+</ul>
+</li>
+</ul>
+<p>💡 <strong>Catatan:</strong></p>
+<ul class="simple">
+<li><p>Data biner sering digunakan dalam machine learning untuk klasifikasi biner.</p></li>
+<li><p>Dalam beberapa kasus, data nominal bisa dikonversi menjadi data biner (misalnya, One-Hot Encoding dalam machine learning).</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="data-numerik">
+<h2>4. Data Numerik<a class="headerlink" href="#data-numerik" title="Link to this heading">#</a></h2>
+<p>Data numerik adalah data yang berbentuk angka dan bisa dilakukan operasi matematis seperti penjumlahan, pengurangan, perkalian, dan pembagian.</p>
+<section id="a-interval-scaled-data">
+<h3><strong>A. Interval-Scaled Data</strong><a class="headerlink" href="#a-interval-scaled-data" title="Link to this heading">#</a></h3>
+<p>Data interval adalah data numerik di mana perbedaan antar nilai memiliki makna, tetapi <strong>tidak memiliki nol absolut</strong>. Artinya, nol pada skala ini bukan berarti “tidak ada”.</p>
+<p><strong>Contoh Data Interval:</strong></p>
+<ul class="simple">
+<li><p><strong>Suhu dalam skala Celcius atau Fahrenheit</strong> → (0°C bukan berarti tidak ada suhu, hanya titik referensi).</p></li>
+<li><p><strong>Tahun dalam kalender</strong> → (Tahun 2000 dan 2020 bisa dibandingkan, tapi tidak ada “tahun nol” absolut).</p></li>
+</ul>
+<p>💡 <strong>Catatan:</strong></p>
+<ul class="simple">
+<li><p>Data interval bisa dilakukan operasi penjumlahan dan pengurangan, tetapi <strong>tidak bisa dilakukan pembagian atau perkalian</strong>.</p></li>
+<li><p>Misalnya, kita bisa bilang bahwa suhu 30°C lebih panas dari 20°C, tapi kita <strong>tidak bisa mengatakan</strong> bahwa 20°C adalah “setengah lebih dingin” dari 40°C karena nol pada skala ini bersifat relatif.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="b-ratio-scaled-data">
+<h3>B. Ratio-Scaled Data<a class="headerlink" href="#b-ratio-scaled-data" title="Link to this heading">#</a></h3>
+<p>Data rasio adalah data numerik di mana perbedaan antar nilai memiliki makna, dan memiliki <strong>nol absolut</strong>. Nol pada skala ini benar-benar berarti “tidak ada”.</p>
+<p><strong>Contoh Data Rasio:</strong></p>
+<ul class="simple">
+<li><p><strong>Berat badan</strong> → (0 kg berarti tidak ada berat).</p></li>
+<li><p><strong>Pendapatan seseorang</strong> → (0 rupiah berarti tidak ada penghasilan).</p></li>
+<li><p><strong>Jumlah anak dalam keluarga</strong> → (0 anak berarti tidak memiliki anak).</p></li>
+<li><p><strong>Panjang atau jarak</strong> → (0 meter berarti tidak ada panjang atau jarak).</p></li>
+</ul>
+<p>💡 <strong>Catatan:</strong></p>
+<ul class="simple">
+<li><p>Data rasio memungkinkan semua operasi matematika (penjumlahan, pengurangan, perkalian, dan pembagian).</p></li>
+<li><p>Bisa dibandingkan dengan perbandingan rasio. Contoh: “Seseorang dengan berat 80 kg memiliki berat dua kali lipat dibandingkan seseorang yang beratnya 40 kg.”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pymysql</span> <span class="n">psycopg2</span> <span class="n">pandas</span> <span class="n">sqlalchemy</span> <span class="n">matplotlib</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="pengumpulan-data">
+<h1><strong>Pengumpulan Data</strong><a class="headerlink" href="#pengumpulan-data" title="Link to this heading">#</a></h1>
+<p>Selanjutnya dibawah akan ada contoh pengumpulan dan penggabungan data dari dua database berbeda (MySQl dan PostgreSQL) dengan statistik deskriptif sederhana dan visualisasi distribusi data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Koneksi ke Aiven MySQL</span>
+<span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;mysql+pymysql://avnadmin:AVNS_I3uyEXhVPigdiUkZtt-@iris-mysql-mysqlpendat.l.aivencloud.com:16515/defaultdb&quot;</span><span class="p">)</span>
+<span class="c1"># Koneksi ke Aiven PostgreSQL</span>
+<span class="n">postgres_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;postgresql+psycopg2://avnadmin:AVNS_ec3MbVY4VpUQGxgGfMx@iris-postgresql-postgresqlpendat.l.aivencloud.com:10689/defaultdb&quot;</span><span class="p">)</span>
+
+<span class="c1"># Mengambil data sari MySQL</span>
+<span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_mysql&quot;</span><span class="p">,</span><span class="n">mysql_engine</span><span class="p">)</span>
+<span class="c1"># Mengambil data dari PostgreSQL</span>
+<span class="n">df_postgres</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_postgres&quot;</span><span class="p">,</span><span class="n">postgres_engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="preview-data-dari-mysql">
+<h2>Preview data dari MySQL<a class="headerlink" href="#preview-data-dari-mysql" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_mysql</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>86.4</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="preview-data-dari-postgresql">
+<h2>Preview data dari PostgreSQL<a class="headerlink" href="#preview-data-dari-postgresql" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_postgres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.7</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Iris-setosa</td>
+      <td>5.4</td>
+      <td>3.9</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="proses-penggabungan-data-yang-sudah-diambil">
+<h2>Proses penggabungan data yang sudah diambil<a class="headerlink" href="#proses-penggabungan-data-yang-sudah-diambil" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Proses Menggabungkan data dari dua database</span>
+<span class="n">df_postgres</span> <span class="o">=</span> <span class="n">df_postgres</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">])</span> <span class="c1">#menghilangkan kolom &quot;class&quot; pada dataframe postgreSQL agar tidak terjadi duplikasi kolom</span>
+<span class="n">df_iris</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_postgres</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">df_iris</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./property/iris_combined.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># menyimpan hasil penggabungan ke file csv</span>
+<span class="n">df_iris</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>86.4</td>
+      <td>70.0</td>
+      <td>20.1</td>
+      <td>30.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.7</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>6.7</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>6.5</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>6.2</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>5.9</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 6 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="ekplorasi-data">
+<h1><strong>Ekplorasi Data</strong><a class="headerlink" href="#ekplorasi-data" title="Link to this heading">#</a></h1>
+<section id="statistik-deskriptif">
+<h2>Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hitung statistik deskriptif</span>
+<span class="n">fitur</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">fitur</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">])</span>
+
+<span class="c1"># Hitung modus secara terpisah karena bisa ada lebih dari satu nilai yang dominan</span>
+<span class="n">mode_values</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">fitur</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Gabungkan hasilnya</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mode_values</span>
+
+<span class="c1"># Cetak hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        sepal length  sepal width  petal length  petal width
+mean        5.943333        3.234      4.325333        1.664
+median      5.800000        3.000      4.400000        1.300
+min         4.300000        2.000      1.000000        0.100
+max        20.100000       30.500     86.400000       70.000
+mode        5.000000        3.000      1.500000        0.200
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualiasai-distribusi-data-yang-digabungkan">
+<h2>Visualiasai distribusi data yang digabungkan<a class="headerlink" href="#visualiasai-distribusi-data-yang-digabungkan" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install matplotlib -qq
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Buat histogram untuk setiap fitur</span>
+<span class="n">fitur</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># 2x2 layout</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribusi Data Iris&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Judul utama</span>
+
+<span class="c1"># Loop untuk membuat histogram pada setiap subplot</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">fitur</span><span class="p">):</span>
+    <span class="n">df_iris</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribusi </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Judul tiap subplot</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>  <span class="c1"># Label X sesuai fitur</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>  <span class="c1"># Label Y</span>
+
+<span class="c1"># Tampilkan plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">])</span>  <span class="c1"># Atur layout agar tidak bertumpuk dengan judul</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<img alt="_images/84c810f00bdc05817e2ca40a1289f8b91d5aae5ecb41087d09f51a9352feabf6.png" src="_images/84c810f00bdc05817e2ca40a1289f8b91d5aae5ecb41087d09f51a9352feabf6.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="identifikasi-masalah-data">
+<h1><strong>Identifikasi Masalah Data</strong><a class="headerlink" href="#identifikasi-masalah-data" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>Missing Values</strong>: Menemukan data yang hilang atau tidak lengkap.</p></li>
+<li><p><strong>Outliers</strong>: Mendeteksi nilai-nilai ekstrem yang mungkin merupakan kesalahan atau anomali.</p></li>
+<li><p><strong>Duplikasi Data</strong>: Mengidentifikasi baris atau entri yang duplikat.</p></li>
+<li><p><strong>Inkonsistensi</strong>: Memeriksa apakah ada ketidaksesuaian dalam format atau nilai data.</p></li>
+</ul>
+<section id="outliers">
+<h2>Outliers<a class="headerlink" href="#outliers" title="Link to this heading">#</a></h2>
+<p>Outlier adalah titik data yang secara signifikan berbeda dari sebagian besar data dalam suatu dataset. Outlier dapat terjadi karena beberapa alasan:</p>
+<section id="penyebab-outlier">
+<h3>Penyebab Outlier<a class="headerlink" href="#penyebab-outlier" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Kesalahan Pengukuran</strong>: Kesalahan saat mengumpulkan data, misalnya, kesalahan sensor atau human error.</p></li>
+<li><p><strong>Variasi Alami</strong>: Kejadian langka atau anomali yang memang terjadi dalam data.</p></li>
+<li><p><strong>Kesalahan Input Data</strong>: Kesalahan saat memasukkan data, seperti typo atau kesalahan entri.</p></li>
+</ul>
+</section>
+<section id="dampak-outlier">
+<h3>Dampak Outlier<a class="headerlink" href="#dampak-outlier" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mengubah Nilai Statistik</strong>: Mean dan standar deviasi dapat terpengaruh oleh outlier.</p></li>
+<li><p><strong>Mengurangi Akurasi Model</strong>: Outlier dapat menyebabkan model machine learning menjadi kurang akurat.</p></li>
+<li><p><strong>Mengaburkan Pola Data</strong>: Outlier dapat menyembunyikan pola atau tren yang sebenarnya dalam data.</p></li>
+</ul>
+</section>
+<section id="pentingnya-deteksi-outlier">
+<h3>Pentingnya Deteksi Outlier<a class="headerlink" href="#pentingnya-deteksi-outlier" title="Link to this heading">#</a></h3>
+<p>Deteksi outlier penting untuk:</p>
+<ul class="simple">
+<li><p><strong>Membersihkan Data</strong>: Menghapus atau memperbaiki data yang tidak valid.</p></li>
+<li><p><strong>Mengidentifikasi Anomali</strong>: Mendeteksi kejadian langka atau mencurigakan, seperti fraud detection.</p></li>
+<li><p><strong>Memahami Variasi Data</strong>: Mempelajari variasi atau penyimpangan dalam data.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="k-nearest-neighbors-knn">
+<h2>K-Nearest Neighbors (KNN)<a class="headerlink" href="#k-nearest-neighbors-knn" title="Link to this heading">#</a></h2>
+<p>KNN adalah algoritma machine learning yang digunakan untuk <strong>klasifikasi</strong> dan <strong>regresi</strong>. Berikut adalah penjelasan rinci tentang KNN:</p>
+<section id="prinsip-kerja-knn">
+<h3>Prinsip Kerja KNN<a class="headerlink" href="#prinsip-kerja-knn" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Menghitung Jarak</strong>: Untuk setiap titik data, KNN menghitung jarak ke ( k ) tetangga terdekatnya. Jarak yang umum digunakan adalah Euclidean Distance.</p></li>
+<li><p><strong>Klasifikasi</strong>: Untuk klasifikasi, KNN memilih kelas yang paling dominan di antara ( k ) tetangga terdekat.</p></li>
+<li><p><strong>Regresi</strong>: Untuk regresi, KNN mengambil rata-rata atau median dari nilai ( k ) tetangga terdekat.</p></li>
+<li><p><strong>Deteksi Outlier</strong>: KNN dapat digunakan untuk mendeteksi outlier dengan mengukur jarak suatu titik data terhadap tetangga terdekatnya. Jika jaraknya terlalu jauh, titik data tersebut dianggap sebagai outlier.</p></li>
+</ol>
+</section>
+<section id="keunggulan-knn">
+<h3>Keunggulan KNN<a class="headerlink" href="#keunggulan-knn" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mudah Dipahami</strong>: Algoritma KNN sederhana dan intuitif.</p></li>
+<li><p><strong>Tidak Memerlukan Pelatihan</strong>: KNN termasuk dalam kategori <em>lazy learning</em>, sehingga tidak memerlukan proses pelatihan model.</p></li>
+<li><p><strong>Fleksibel</strong>: Dapat digunakan untuk klasifikasi, regresi, dan deteksi outlier.</p></li>
+</ul>
+</section>
+<section id="kekurangan-knn">
+<h3>Kekurangan KNN<a class="headerlink" href="#kekurangan-knn" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Komputasi Mahal</strong>: Menghitung jarak untuk dataset besar membutuhkan waktu dan sumber daya yang besar.</p></li>
+<li><p><strong>Sensitif terhadap Skala Data</strong>: KNN sangat dipengaruhi oleh skala data, sehingga data perlu dinormalisasi atau distandarisasi.</p></li>
+<li><p><strong>Pemilihan ( k )</strong>: Pemilihan nilai ( k ) yang tepat sangat penting untuk kinerja model.</p></li>
+</ul>
+</section>
+<section id="knn-untuk-deteksi-outlier">
+<h3>KNN untuk Deteksi Outlier<a class="headerlink" href="#knn-untuk-deteksi-outlier" title="Link to this heading">#</a></h3>
+<p>Dalam konteks deteksi outlier, KNN bekerja dengan:</p>
+<ol class="arabic simple">
+<li><p>Menghitung jarak Euclidean antara setiap titik data dan ( k ) tetangga terdekatnya.</p></li>
+<li><p>Menghitung rata-rata jarak ke ( k ) tetangga terdekat.</p></li>
+<li><p>Menentukan threshold untuk mengidentifikasi outlier (misalnya, menggunakan persentil ke-99).</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="proses-deteksi-outlier-menggunakan-knn">
+<h2>Proses Deteksi Outlier menggunakan KNN<a class="headerlink" href="#proses-deteksi-outlier-menggunakan-knn" title="Link to this heading">#</a></h2>
+<p>Pada contoh ini, kita akan menggunakan KNN untuk mendeteksi outlier pada dataset iris yang sudah digabung. Berikut adalah langkah-langkahnya:</p>
+<section id="persiapan-data">
+<h3>Persiapan Data<a class="headerlink" href="#persiapan-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Dataset dibaca dari hasil penggabungan yang disimpan pada <code class="docutils literal notranslate"><span class="pre">df_iris</span></code>.</p></li>
+<li><p>Fitur yang digunakan adalah <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">length</span></code>, dan <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">width</span></code>.</p></li>
+</ul>
+</section>
+<section id="inisialisasi-model-knn">
+<h3>Inisialisasi Model KNN<a class="headerlink" href="#inisialisasi-model-knn" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Model KNN diinisialisasi dengan ( k = 5 ) dan metrik jarak Euclidean.</p></li>
+</ul>
+</section>
+<section id="menghitung-jarak">
+<h3>Menghitung Jarak<a class="headerlink" href="#menghitung-jarak" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jarak ke ( k ) tetangga terdekat dihitung untuk setiap titik data.</p></li>
+<li><p>Rata-rata jarak ke ( k ) tetangga terdekat dihitung.</p></li>
+</ul>
+</section>
+<section id="menentukan-outlier">
+<h3>Menentukan Outlier<a class="headerlink" href="#menentukan-outlier" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Outlier ditentukan berdasarkan threshold (persentil ke-99 dari rata-rata jarak).</p></li>
+<li><p>Titik data dengan rata-rata jarak lebih besar dari threshold dianggap sebagai outlier.</p></li>
+</ul>
+</section>
+<section id="visualisasi">
+<h3>Visualisasi<a class="headerlink" href="#visualisasi" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Outlier divisualisasikan menggunakan scatter plot untuk dua pasangan fitur:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">width</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Outlier ditandai dengan warna merah, sedangkan data normal ditampilkan dengan warna biru.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install scikit-learn -qq
+<span class="o">%</span><span class="k">pip</span> install numpy -qq
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+
+<span class="c1"># Pilih fitur yang akan digunakan untuk deteksi outlier</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">fitur</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Inisialisasi model KNN</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Jumlah tetangga terdekat</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="c1"># Hitung jarak ke k tetangga terdekat</span>
+<span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="c1"># Hitung rata-rata jarak ke k tetangga terdekat</span>
+<span class="n">mean_distances</span> <span class="o">=</span> <span class="n">distances</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Tentukan threshold untuk outlier</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">mean_distances</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span><span class="c1"># Ambil 1% data dengan jarak terbesar sebagai outlier</span>
+<span class="c1"># Tandai outlier</span>
+<span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_distances</span> <span class="o">&gt;</span> <span class="n">threshold</span>
+
+<span class="c1"># Menampilkan data yang dianggap outlier</span>
+<span class="n">outliers_data</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outliers detected:&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualisasi untuk pasangan kolom petal length vs petal width</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Diagram 1: Petal Length vs Petal Width</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 baris, 2 kolom, diagram pertama</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span> <span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outliers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Petal Length&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Petal Length vs Petal Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Diagram 2: Sepal Length vs Sepal Width</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 1 baris, 2 kolom, diagram kedua</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;sepal width&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;sepal width&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outliers&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sepal Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sepal Length vs Sepal Width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Agar layout tidak tumpang tindih</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Outliers detected:
+</pre></div>
+</div>
+<img alt="_images/6838e010948922f3442bc61c73ad819bba23c21eaabc24b2d8e98cf81b6a6ab0.png" src="_images/6838e010948922f3442bc61c73ad819bba23c21eaabc24b2d8e98cf81b6a6ab0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Outlier (Total: </span><span class="si">{}</span><span class="s2"> baris) ===&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal length&#39;</span><span class="p">,</span><span class="s1">&#39;sepal width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Untuk menyimpan data yang bersih pada file csv</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">mean_distances</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;outlier&quot;</span><span class="p">)</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;./property/iris_cleaned.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Outlier (Total: 2 baris) ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>20.1</td>
+      <td>30.5</td>
+      <td>86.4</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>107</td>
+      <td>Iris-virginica</td>
+      <td>4.9</td>
+      <td>2.5</td>
+      <td>4.5</td>
+      <td>1.7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="data-bersih">
+<h1>Data Bersih<a class="headerlink" href="#data-bersih" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data bersih : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data bersih : 148 baris
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.7</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Iris-setosa</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>5.4</td>
+      <td>3.9</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>143</th>
+      <td>146</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>6.7</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>148</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>6.5</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>6.2</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>5.9</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>148 rows × 6 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot Data Bersih</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bersih&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Data Bersih (n=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot Outlier</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bersih&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Outlier (n=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f9ae7b0e098ee60ec8b9e3ac700e000b0c3661e9577f6e1a88fa773a16eaad22.png" src="_images/f9ae7b0e098ee60ec8b9e3ac700e000b0c3661e9577f6e1a88fa773a16eaad22.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="About_Me.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">About Me</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="LOF.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Local Outlier Factor (LOF)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Data Understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-pada-data-mining"><strong>Tipe Data pada Data Mining</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-nominal">1. Data Nominal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-ordinal">2. Data Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-biner">3. Data Biner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-biner"><strong>Tipe Data Biner:</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-numerik">4. Data Numerik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-interval-scaled-data"><strong>A. Interval-Scaled Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-ratio-scaled-data">B. Ratio-Scaled Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data"><strong>Pengumpulan Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data-dari-mysql">Preview data dari MySQL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data-dari-postgresql">Preview data dari PostgreSQL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-penggabungan-data-yang-sudah-diambil">Proses penggabungan data yang sudah diambil</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data"><strong>Ekplorasi Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">Statistik Deskriptif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualiasai-distribusi-data-yang-digabungkan">Visualiasai distribusi data yang digabungkan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-masalah-data"><strong>Identifikasi Masalah Data</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebab-outlier">Penyebab Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dampak-outlier">Dampak Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-deteksi-outlier">Pentingnya Deteksi Outlier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prinsip-kerja-knn">Prinsip Kerja KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keunggulan-knn">Keunggulan KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan-knn">Kekurangan KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-untuk-deteksi-outlier">KNN untuk Deteksi Outlier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-deteksi-outlier-menggunakan-knn">Proses Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data">Persiapan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inisialisasi-model-knn">Inisialisasi Model KNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak">Menghitung Jarak</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-outlier">Menentukan Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi">Visualisasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-bersih">Data Bersih</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

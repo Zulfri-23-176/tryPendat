@@ -1,0 +1,1210 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Local Outlier Factor (LOF) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'LOF';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Naive Bayes" href="NaiveBayes.html" />
+    <link rel="prev" title="Data Understanding" href="Pendat_Tugas_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/data-mining.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/data-mining.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="About_Me.html">About Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pendat_Tugas_1.html">Data Understanding</a></li>
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NaiveBayes.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Pendat.html">Ujian Tengah Semester</a></li>
+<li class="toctree-l1"><a class="reference internal" href="K-Means.html">K-Means Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FLOF.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/LOF.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Local Outlier Factor (LOF)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-lof">Pengertian LOF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-lof-menentukan-titik-outlier">Bagaimana LOF menentukan titik outlier?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data">Preview Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-lof">Perhitungan Manual LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-1-25-30">1. Titik 1 (25, 30)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-2-27-32">2. Titik 2 (27, 32)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-3-30-35">3. Titik 3 (30, 35)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-4-50-55">4. Titik 4 (50, 55)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-5-52-57">5. Titik 5 (52, 57)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-6-54-60">6. Titik 6 (54, 60)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-7-75-78">7. Titik 7 (75, 78)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-8-80-79">8. Titik 8 (80, 79)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-9-22-80">9. Titik 9 (22, 80)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-10-77-25">10. Titik 10 (77, 25)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-hasil-lof">Ringkasan Hasil LOF :</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-hitung-manual">Kesimpulan Hitung Manual :</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-lof-menggunakan-python">Perhitungan LOF menggunakan Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-vs-python">Perhitungan Manual vs Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual">1. Perhitungan Manual:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-menggunakan-python-sklearn">2. Perhitungan Menggunakan Python (sklearn):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan">3. Perbandingan:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-umum">4. Kesimpulan Umum:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="local-outlier-factor-lof">
+<h1>Local Outlier Factor (LOF)<a class="headerlink" href="#local-outlier-factor-lof" title="Link to this heading">#</a></h1>
+<section id="pengertian-lof">
+<h2>Pengertian LOF<a class="headerlink" href="#pengertian-lof" title="Link to this heading">#</a></h2>
+<p>LOF (Local Outlier Factor) adalah sebuah algoritma yang digunakan untuk mendeteksi outlier (data yang menyimpang atau anomali) dalam sebuah dataset. Berbeda dengan metode outlier detection tradisional yang hanya melihat distribusi global data, LOF bekerja dengan membandingkan kepadatan lokal (local density) suatu titik data dengan kepadatan lokal titik-titik tetangganya. Ini membuat LOF sangat efektif untuk mendeteksi outlier di dataset yang memiliki kepadatan data yang tidak seragam.</p>
+</section>
+<section id="bagaimana-lof-menentukan-titik-outlier">
+<h2>Bagaimana LOF menentukan titik outlier?<a class="headerlink" href="#bagaimana-lof-menentukan-titik-outlier" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Hitung jarak antar titik</strong>: Cek seberapa dekat titik-titik dalam dataset.</p></li>
+<li><p><strong>Tentukan tetangga terdekat (k-nearest neighbors)</strong>: Kita pakai k = 3, jadi tiap titik punya 3 tetangga terdekat.</p></li>
+<li><p><strong>Hitung k-Distance</strong>: Jarak ke tetangga ke-k terdekat.</p></li>
+<li><p><strong>Hitung Reachability Distance (RD)</strong>: Seberapa jauh titik bisa dicapai dari tetangganya.</p></li>
+<li><p><strong>Hitung Local Reachability Density (LRD)</strong>: Seberapa padat suatu titik dibandingkan dengan tetangganya.</p></li>
+<li><p><strong>Hitung LOF Score</strong>: Perbandingan kepadatan titik dengan tetangganya.</p></li>
+<li><p><strong>Tentukan outlier atau bukan</strong>:</p>
+<ul class="simple">
+<li><p>LOF &gt; 1: Titik dianggap sebagai outlier (semakin besar nilainya, semakin outlier).</p></li>
+<li><p>LOF ≈ 1: Titik dianggap normal (bukan outlier).</p></li>
+<li><p>LOF &lt; 1: Titik dianggap sebagai inlier (lebih padat dari tetangganya).</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="preview-data">
+<h2>Preview Data<a class="headerlink" href="#preview-data" title="Link to this heading">#</a></h2>
+<p>Kita pakai dataset dengan nilai antara 20-80, dengan beberapa titik ekstrem yang berpotensi sebagai outlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas -qq
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./property/LOF-Data.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ID</th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>25</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>27</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>30</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>50</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>52</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>54</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>75</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>80</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>22</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>10</td>
+      <td>77</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="perhitungan-manual-lof">
+<h2>Perhitungan Manual LOF<a class="headerlink" href="#perhitungan-manual-lof" title="Link to this heading">#</a></h2>
+<section id="titik-1-25-30">
+<h3>1. Titik 1 (25, 30)<a class="headerlink" href="#titik-1-25-30" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 2, Titik 3, Titik 4</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 2 = 2.828</p></li>
+<li><p>Jarak ke Titik 3 = 7.071</p></li>
+<li><p>Jarak ke Titik 4 = 35.355</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 35.355 (jarak ke tetangga ke-3, yaitu Titik 4)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(1, 2) = max(K-Distance(2), Jarak(1, 2)) = max(32.526, 2.828) = 32.526</p></li>
+<li><p>RD(1, 3) = max(K-Distance(3), Jarak(1, 3)) = max(28.284, 7.071) = 28.284</p></li>
+<li><p>RD(1, 4) = max(K-Distance(4), Jarak(1, 4)) = max(35.355, 35.355) = 35.355</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (32.526 + 28.284 + 35.355) / 3 = 32.055</p></li>
+<li><p>LRD(1) = 1 / 32.055 = 0.031</p></li>
+</ul>
+<p><strong>LOF(1):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(2) = 0.031 (dari perhitungan Titik 2)</p></li>
+<li><p>LRD(3) = 0.035 (dari perhitungan Titik 3)</p></li>
+<li><p>LRD(4) = 0.028 (dari perhitungan Titik 4)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.031 + 0.035 + 0.028) / 3 = 0.031</p></li>
+<li><p>LOF(1) = (rata-rata LRD tetangga) / LRD(1) = 0.031 / 0.031 = 1.000</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-2-27-32">
+<h3>2. Titik 2 (27, 32)<a class="headerlink" href="#titik-2-27-32" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 1, Titik 3, Titik 4</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 1 = 2.828</p></li>
+<li><p>Jarak ke Titik 3 = 4.242</p></li>
+<li><p>Jarak ke Titik 4 = 32.526</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 32.526 (jarak ke tetangga ke-3, yaitu Titik 4)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(2, 1) = max(K-Distance(1), Jarak(2, 1)) = max(35.355, 2.828) = 35.355</p></li>
+<li><p>RD(2, 3) = max(K-Distance(3), Jarak(2, 3)) = max(28.284, 4.242) = 28.284</p></li>
+<li><p>RD(2, 4) = max(K-Distance(4), Jarak(2, 4)) = max(32.526, 32.526) = 32.526</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (35.355 + 28.284 + 32.526) / 3 = 32.055</p></li>
+<li><p>LRD(2) = 1 / 32.055 = 0.031</p></li>
+</ul>
+<p><strong>LOF(2):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(1) = 0.031 (dari perhitungan Titik 1)</p></li>
+<li><p>LRD(3) = 0.035 (dari perhitungan Titik 3)</p></li>
+<li><p>LRD(4) = 0.028 (dari perhitungan Titik 4)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.031 + 0.035 + 0.028) / 3 = 0.031</p></li>
+<li><p>LOF(2) = (rata-rata LRD tetangga) / LRD(2) = 0.031 / 0.031 = 1.000</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-3-30-35">
+<h3>3. Titik 3 (30, 35)<a class="headerlink" href="#titik-3-30-35" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 2, Titik 1, Titik 4</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 2 = 4.242</p></li>
+<li><p>Jarak ke Titik 1 = 7.071</p></li>
+<li><p>Jarak ke Titik 4 = 28.284</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 28.284 (jarak ke tetangga ke-3, yaitu Titik 4)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(3, 2) = max(K-Distance(2), Jarak(3, 2)) = max(32.526, 4.242) = 32.526</p></li>
+<li><p>RD(3, 1) = max(K-Distance(1), Jarak(3, 1)) = max(35.355, 7.071) = 35.355</p></li>
+<li><p>RD(3, 4) = max(K-Distance(4), Jarak(3, 4)) = max(28.284, 28.284) = 28.284</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (32.526 + 35.355 + 28.284) / 3 = 32.055</p></li>
+<li><p>LRD(3) = 1 / 32.055 = 0.031</p></li>
+</ul>
+<p><strong>LOF(3):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(2) = 0.031 (dari perhitungan Titik 2)</p></li>
+<li><p>LRD(1) = 0.031 (dari perhitungan Titik 1)</p></li>
+<li><p>LRD(4) = 0.028 (dari perhitungan Titik 4)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.031 + 0.031 + 0.028) / 3 = 0.030</p></li>
+<li><p>LOF(3) = (rata-rata LRD tetangga) / LRD(3) = 0.030 / 0.031 = 0.968</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-4-50-55">
+<h3>4. Titik 4 (50, 55)<a class="headerlink" href="#titik-4-50-55" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 5, Titik 6, Titik 3</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 5 = 2.828</p></li>
+<li><p>Jarak ke Titik 6 = 6.403</p></li>
+<li><p>Jarak ke Titik 3 = 28.284</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 28.284 (jarak ke tetangga ke-3, yaitu Titik 3)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(4, 5) = max(K-Distance(5), Jarak(4, 5)) = max(31.112, 2.828) = 31.112</p></li>
+<li><p>RD(4, 6) = max(K-Distance(6), Jarak(4, 6)) = max(27.658, 6.403) = 27.658</p></li>
+<li><p>RD(4, 3) = max(K-Distance(3), Jarak(4, 3)) = max(28.284, 28.284) = 28.284</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (31.112 + 27.658 + 28.284) / 3 = 29.018</p></li>
+<li><p>LRD(4) = 1 / 29.018 = 0.034</p></li>
+</ul>
+<p><strong>LOF(4):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(5) = 0.032 (dari perhitungan Titik 5)</p></li>
+<li><p>LRD(6) = 0.036 (dari perhitungan Titik 6)</p></li>
+<li><p>LRD(3) = 0.031 (dari perhitungan Titik 3)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.032 + 0.036 + 0.031) / 3 = 0.033</p></li>
+<li><p>LOF(4) = (rata-rata LRD tetangga) / LRD(4) = 0.033 / 0.034 = 0.971</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-5-52-57">
+<h3>5. Titik 5 (52, 57)<a class="headerlink" href="#titik-5-52-57" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 4, Titik 6, Titik 3</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 4 = 2.828</p></li>
+<li><p>Jarak ke Titik 6 = 3.605</p></li>
+<li><p>Jarak ke Titik 3 = 31.112</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 31.112 (jarak ke tetangga ke-3, yaitu Titik 3)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(5, 4) = max(K-Distance(4), Jarak(5, 4)) = max(28.284, 2.828) = 28.284</p></li>
+<li><p>RD(5, 6) = max(K-Distance(6), Jarak(5, 6)) = max(27.658, 3.605) = 27.658</p></li>
+<li><p>RD(5, 3) = max(K-Distance(3), Jarak(5, 3)) = max(31.112, 31.112) = 31.112</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (28.284 + 27.658 + 31.112) / 3 = 29.018</p></li>
+<li><p>LRD(5) = 1 / 29.018 = 0.034</p></li>
+</ul>
+<p><strong>LOF(5):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(4) = 0.034 (dari perhitungan Titik 4)</p></li>
+<li><p>LRD(6) = 0.036 (dari perhitungan Titik 6)</p></li>
+<li><p>LRD(3) = 0.031 (dari perhitungan Titik 3)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.034 + 0.036 + 0.031) / 3 = 0.034</p></li>
+<li><p>LOF(5) = (rata-rata LRD tetangga) / LRD(5) = 0.034 / 0.034 = 1.000</p></li>
+</ul>
+</section>
+<section id="titik-6-54-60">
+<h3>6. Titik 6 (54, 60)<a class="headerlink" href="#titik-6-54-60" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 5, Titik 4, Titik 7</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 5 = 3.605</p></li>
+<li><p>Jarak ke Titik 4 = 6.403</p></li>
+<li><p>Jarak ke Titik 7 = 27.658</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 27.658 (jarak ke tetangga ke-3, yaitu Titik 7)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(6, 5) = max(K-Distance(5), Jarak(6, 5)) = max(31.112, 3.605) = 31.112</p></li>
+<li><p>RD(6, 4) = max(K-Distance(4), Jarak(6, 4)) = max(28.284, 6.403) = 28.284</p></li>
+<li><p>RD(6, 7) = max(K-Distance(7), Jarak(6, 7)) = max(27.658, 27.658) = 27.658</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (31.112 + 28.284 + 27.658) / 3 = 29.018</p></li>
+<li><p>LRD(6) = 1 / 29.018 = 0.034</p></li>
+</ul>
+<p><strong>LOF(6):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(5) = 0.034 (dari perhitungan Titik 5)</p></li>
+<li><p>LRD(4) = 0.034 (dari perhitungan Titik 4)</p></li>
+<li><p>LRD(7) = 0.036 (dari perhitungan Titik 7)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.034 + 0.034 + 0.036) / 3 = 0.035</p></li>
+<li><p>LOF(6) = (rata-rata LRD tetangga) / LRD(6) = 0.035 / 0.034 = 1.029</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-7-75-78">
+<h3>7. Titik 7 (75, 78)<a class="headerlink" href="#titik-7-75-78" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 8, Titik 6, Titik 5</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 8 = 5.099</p></li>
+<li><p>Jarak ke Titik 6 = 27.658</p></li>
+<li><p>Jarak ke Titik 5 = 31.144</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 31.144 (jarak ke tetangga ke-3, yaitu Titik 5)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(7, 8) = max(K-Distance(8), Jarak(7, 8)) = max(54.083, 5.099) = 54.083</p></li>
+<li><p>RD(7, 6) = max(K-Distance(6), Jarak(7, 6)) = max(27.658, 27.658) = 27.658</p></li>
+<li><p>RD(7, 5) = max(K-Distance(5), Jarak(7, 5)) = max(31.144, 31.144) = 31.144</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (54.083 + 27.658 + 31.144) / 3 = 37.628</p></li>
+<li><p>LRD(7) = 1 / 37.628 = 0.027</p></li>
+</ul>
+<p><strong>LOF(7):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(8) = 0.018 (dari perhitungan Titik 8)</p></li>
+<li><p>LRD(6) = 0.034 (dari perhitungan Titik 6)</p></li>
+<li><p>LRD(5) = 0.034 (dari perhitungan Titik 5)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.018 + 0.034 + 0.034) / 3 = 0.029</p></li>
+<li><p>LOF(7) = (rata-rata LRD tetangga) / LRD(7) = 0.029 / 0.027 = 1.074</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-8-80-79">
+<h3>8. Titik 8 (80, 79)<a class="headerlink" href="#titik-8-80-79" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 7, Titik 6, Titik 5</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 7 = 5.099</p></li>
+<li><p>Jarak ke Titik 6 = 32.202</p></li>
+<li><p>Jarak ke Titik 5 = 35.608</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 35.608 (jarak ke tetangga ke-3, yaitu Titik 5)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(8, 7) = max(K-Distance(7), Jarak(8, 7)) = max(31.144, 5.099) = 31.144</p></li>
+<li><p>RD(8, 6) = max(K-Distance(6), Jarak(8, 6)) = max(27.658, 32.202) = 32.202</p></li>
+<li><p>RD(8, 5) = max(K-Distance(5), Jarak(8, 5)) = max(31.112, 35.608) = 35.608</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (31.144 + 32.202 + 35.608) / 3 = 32.985</p></li>
+<li><p>LRD(8) = 1 / 32.985 = 0.030</p></li>
+</ul>
+<p><strong>LOF(8):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(7) = 0.027 (dari perhitungan Titik 7)</p></li>
+<li><p>LRD(6) = 0.034 (dari perhitungan Titik 6)</p></li>
+<li><p>LRD(5) = 0.034 (dari perhitungan Titik 5)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.027 + 0.034 + 0.034) / 3 = 0.032</p></li>
+<li><p>LOF(8) = (rata-rata LRD tetangga) / LRD(8) = 0.032 / 0.030 = 1.067</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-9-22-80">
+<h3>9. Titik 9 (22, 80)<a class="headerlink" href="#titik-9-22-80" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 4, Titik 6, Titik 5</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 4 = 37.536</p></li>
+<li><p>Jarak ke Titik 6 = 37.735</p></li>
+<li><p>Jarak ke Titik 5 = 37.802</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 37.802 (jarak ke tetangga ke-3, yaitu Titik 5)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(9, 4) = max(K-Distance(4), Jarak(9, 4)) = max(28.284, 37.536) = 37.536</p></li>
+<li><p>RD(9, 6) = max(K-Distance(6), Jarak(9, 6)) = max(27.658, 37.735) = 37.735</p></li>
+<li><p>RD(9, 5) = max(K-Distance(5), Jarak(9, 5)) = max(31.112, 37.802) = 37.802</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (37.536 + 37.735 + 37.802) / 3 = 37.691</p></li>
+<li><p>LRD(9) = 1 / 37.691 = 0.027</p></li>
+</ul>
+<p><strong>LOF(9):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(4) = 0.034 (dari perhitungan Titik 4)</p></li>
+<li><p>LRD(6) = 0.034 (dari perhitungan Titik 6)</p></li>
+<li><p>LRD(5) = 0.034 (dari perhitungan Titik 5)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.034 + 0.034 + 0.034) / 3 = 0.034</p></li>
+<li><p>LOF(9) = (rata-rata LRD tetangga) / LRD(9) = 0.034 / 0.027 = 1.259</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="titik-10-77-25">
+<h3>10. Titik 10 (77, 25)<a class="headerlink" href="#titik-10-77-25" title="Link to this heading">#</a></h3>
+<p><strong>Tetangga Terdekat (k=3):</strong> Titik 4, Titik 5, Titik 6</p>
+<p><strong>Jarak ke Tetangga:</strong></p>
+<ul class="simple">
+<li><p>Jarak ke Titik 4 = 40.360</p></li>
+<li><p>Jarak ke Titik 5 = 40.607</p></li>
+<li><p>Jarak ke Titik 6 = 41.880</p></li>
+</ul>
+<p><strong>K-Distance:</strong> 41.880 (jarak ke tetangga ke-3, yaitu Titik 6)</p>
+<p><strong>Reachability Distance (RD):</strong></p>
+<ul class="simple">
+<li><p>RD(10, 4) = max(K-Distance(4), Jarak(10, 4)) = max(28.284, 40.360) = 40.360</p></li>
+<li><p>RD(10, 5) = max(K-Distance(5), Jarak(10, 5)) = max(31.112, 40.607) = 40.607</p></li>
+<li><p>RD(10, 6) = max(K-Distance(6), Jarak(10, 6)) = max(27.658, 41.880) = 41.880</p></li>
+</ul>
+<p><strong>Local Reachability Density (LRD):</strong></p>
+<ul class="simple">
+<li><p>Rata-rata RD = (40.360 + 40.607 + 41.880) / 3 = 40.949</p></li>
+<li><p>LRD(10) = 1 / 40.949 = 0.024</p></li>
+</ul>
+<p><strong>LOF(10):</strong></p>
+<ul class="simple">
+<li><p><strong>LRD tetangga:</strong></p>
+<ul>
+<li><p>LRD(4) = 0.034 (dari perhitungan Titik 4)</p></li>
+<li><p>LRD(5) = 0.034 (dari perhitungan Titik 5)</p></li>
+<li><p>LRD(6) = 0.034 (dari perhitungan Titik 6)</p></li>
+</ul>
+</li>
+<li><p>Rata-rata LRD tetangga = (0.034 + 0.034 + 0.034) / 3 = 0.034</p></li>
+<li><p>LOF(10) = (rata-rata LRD tetangga) / LRD(10) = 0.034 / 0.024 = 1.417</p></li>
+</ul>
+</section>
+<section id="ringkasan-hasil-lof">
+<h3>Ringkasan Hasil LOF :<a class="headerlink" href="#ringkasan-hasil-lof" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Titik 1</strong>: LOF ≈ 1.100</p></li>
+<li><p><strong>Titik 2</strong>: LOF ≈ 1.067</p></li>
+<li><p><strong>Titik 3</strong>: LOF ≈ 1.067</p></li>
+<li><p><strong>Titik 4</strong>: LOF ≈ 0.971</p></li>
+<li><p><strong>Titik 5</strong>: LOF ≈ 0.971</p></li>
+<li><p><strong>Titik 6</strong>: LOF ≈ 0.971</p></li>
+<li><p><strong>Titik 7</strong>: LOF ≈ 1.000</p></li>
+<li><p><strong>Titik 8</strong>: LOF ≈ 1.100</p></li>
+<li><p><strong>Titik 9</strong>: LOF ≈ 1.259</p></li>
+<li><p><strong>Titik 10</strong>: LOF ≈ 1.417</p></li>
+</ul>
+</section>
+<section id="kesimpulan-hitung-manual">
+<h3>Kesimpulan Hitung Manual :<a class="headerlink" href="#kesimpulan-hitung-manual" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Outlier:</strong> Titik 9 (LOF = 1.259) dan Titik 10 (LOF = 1.417) adalah outlier karena memiliki nilai LOF yang signifikan di atas 1.</p></li>
+<li><p><strong>Sedikit Outlier:</strong> Titik 1 (LOF = 1.100), Titik 2 (LOF = 1.067), Titik 3 (LOF = 1.067), dan Titik 8 (LOF = 1.100) memiliki nilai LOF sedikit di atas 1, sehingga bisa dianggap sebagai outlier ringan.</p></li>
+<li><p><strong>Normal/Inlier:</strong> Titik 4 (LOF = 0.971), Titik 5 (LOF = 0.971), Titik 6 (LOF = 0.971), dan Titik 7 (LOF = 1.000) dianggap normal atau inlier karena nilai LOF-nya mendekati 1 atau sedikit di bawah 1.</p></li>
+</ul>
+</section>
+</section>
+<section id="perhitungan-lof-menggunakan-python">
+<h2>Perhitungan LOF menggunakan Python<a class="headerlink" href="#perhitungan-lof-menggunakan-python" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install numpy -qq
+<span class="o">%</span><span class="k">pip</span> install scikit-learn -qq
+<span class="o">%</span><span class="k">pip</span> install matplotlib -qq
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.legend_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">HandlerPathCollection</span>
+
+<span class="c1"># Membaca data dari file CSV</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./property/LOF-Data.csv&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span> <span class="c1"># Memilih kolom X dan Y</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># Inisialisasi LOF dengan k=3</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># Memprediksi outlier (output akan berupa -1 untuk outlier dan 1 untuk inlier)</span>
+
+<span class="c1"># Menghitung LOF Score dari negative_outlier_factor_</span>
+<span class="c1"># LOF Score = -negative_outlier_factor_</span>
+<span class="n">lof_scores</span> <span class="o">=</span> <span class="o">-</span><span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+
+<span class="c1"># Menambahkan hasil prediksi dan LOF Score ke dalam DataFrame</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;LOF_Prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;LOF_Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lof_scores</span>
+
+<span class="c1"># Menambahkan kolom keterangan berdasarkan prediksi</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Keterangan&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;LOF_Prediction&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Outlier&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Inlier&#39;</span><span class="p">})</span>
+
+<span class="c1"># Menampilkan hasil prediksi dan LOF Score</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;LOF_Prediction&#39;</span><span class="p">,</span> <span class="s1">&#39;LOF_Score&#39;</span><span class="p">,</span> <span class="s1">&#39;Keterangan&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Visualisasi hasil</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_legend_marker_size</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">orig</span><span class="p">):</span>
+    <span class="s2">&quot;Customize size of the legend marker&quot;</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">update_from</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">set_sizes</span><span class="p">([</span><span class="mi">20</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data points&quot;</span><span class="p">)</span>
+<span class="c1"># plot circles with radius proportional to the outlier scores</span>
+<span class="n">X_scores</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">X_scores</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">X_scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">X_scores</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">radius</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+    <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outlier scores&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handler_map</span><span class="o">=</span><span class="p">{</span><span class="n">scatter</span><span class="p">:</span> <span class="n">HandlerPathCollection</span><span class="p">(</span><span class="n">update_func</span><span class="o">=</span><span class="n">update_legend_marker_size</span><span class="p">)})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Local Outlier Factor (LOF)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ID   X   Y  LOF_Prediction  LOF_Score Keterangan
+0   1  25  30               1   1.034885     Inlier
+1   2  27  32               1   1.034885     Inlier
+2   3  30  35               1   1.034885     Inlier
+3   4  50  55               1   0.955585     Inlier
+4   5  52  57               1   0.955585     Inlier
+5   6  54  60               1   1.013031     Inlier
+6   7  75  78               1   1.027113     Inlier
+7   8  80  79               1   1.092588     Inlier
+8   9  22  80              -1   1.282208    Outlier
+9  10  77  25              -1   1.393050    Outlier
+</pre></div>
+</div>
+<img alt="_images/1d3634f8e0fabb19b98c14fec84beee1958fda60977e2f3d0c97340cb5df4175.png" src="_images/1d3634f8e0fabb19b98c14fec84beee1958fda60977e2f3d0c97340cb5df4175.png" />
+</div>
+</div>
+</section>
+<section id="perhitungan-manual-vs-python">
+<h2>Perhitungan Manual vs Python<a class="headerlink" href="#perhitungan-manual-vs-python" title="Link to this heading">#</a></h2>
+<section id="perhitungan-manual">
+<h3>1. Perhitungan Manual:<a class="headerlink" href="#perhitungan-manual" title="Link to this heading">#</a></h3>
+<p>Pada perhitungan manual, kita menghitung LOF untuk setiap titik dengan langkah-langkah berikut:</p>
+<ul class="simple">
+<li><p>Menghitung jarak Euclidean antara titik.</p></li>
+<li><p>Menentukan tetangga terdekat (k=3).</p></li>
+<li><p>Menghitung Reachability Distance (RD).</p></li>
+<li><p>Menghitung Local Reachability Density (LRD).</p></li>
+<li><p>Menghitung LOF sebagai rata-rata rasio LRD tetangga terhadap LRD titik itu sendiri.</p></li>
+</ul>
+<p>Hasil manual menunjukkan bahwa Titik 9 dan Titik 10 memiliki nilai LOF tertinggi (1.259 dan 1.417), yang mengindikasikan mereka sebagai outlier.</p>
+</section>
+<section id="perhitungan-menggunakan-python-sklearn">
+<h3>2. Perhitungan Menggunakan Python (sklearn):<a class="headerlink" href="#perhitungan-menggunakan-python-sklearn" title="Link to this heading">#</a></h3>
+<p>Python menggunakan algoritma LOF yang dioptimalkan dalam library sklearn.</p>
+<ul class="simple">
+<li><p>Hasil dari Python menunjukkan bahwa Titik 9 dan Titik 10 juga diidentifikasi sebagai outlier (dengan prediksi -1).</p></li>
+<li><p>Algoritma LOF diinisialisasi dengan n_neighbors=3 (tetangga terdekat = 3) dan contamination=0.2 (proporsi outlier yang diharapkan = 20%).</p></li>
+<li><p>Metode fit_predict digunakan untuk memprediksi outlier. Outputnya adalah:</p>
+<ul>
+<li><p>1 untuk outlier.</p></li>
+<li><p>1 untuk inlier.</p></li>
+</ul>
+</li>
+<li><p>negative_outlier_factor_ digunakan untuk menghitung LOF Score. Karena nilai ini negatif, kita mengalikannya dengan -1 untuk mendapatkan skor positif.</p></li>
+</ul>
+</section>
+<section id="perbandingan">
+<h3>3. Perbandingan:<a class="headerlink" href="#perbandingan" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Konsistensi</strong>: Hasil dari perhitungan manual dan Python konsisten dalam mengidentifikasi Titik 9 dan Titik 10 sebagai outlier.</p></li>
+<li><p><strong>Perbedaan</strong>: Perhitungan manual lebih memakan waktu dan rentan terhadap kesalahan, sedangkan Python (sklearn) memberikan hasil yang cepat dan akurat.</p></li>
+<li><p><strong>Skor LOF</strong>: Skor LOF dari Python (negative_outlier_factor_) adalah versi terbalik dari skor LOF manual. Semakin negatif skor, semakin outlier titik tersebut.</p></li>
+</ul>
+</section>
+<section id="kesimpulan-umum">
+<h3>4. Kesimpulan Umum:<a class="headerlink" href="#kesimpulan-umum" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Titik 9 (22, 80) dan Titik 10 (77, 25) adalah outlier berdasarkan kedua metode.</p></li>
+<li><p>Perhitungan manual dan Python (sklearn) memberikan hasil yang konsisten, tetapi Python lebih efisien dan direkomendasikan untuk dataset yang lebih besar.</p></li>
+<li><p>Visualisasi dari Python membantu memahami distribusi outlier dengan lebih baik.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Pendat_Tugas_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="NaiveBayes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Naive Bayes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-lof">Pengertian LOF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-lof-menentukan-titik-outlier">Bagaimana LOF menentukan titik outlier?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-data">Preview Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-lof">Perhitungan Manual LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-1-25-30">1. Titik 1 (25, 30)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-2-27-32">2. Titik 2 (27, 32)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-3-30-35">3. Titik 3 (30, 35)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-4-50-55">4. Titik 4 (50, 55)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-5-52-57">5. Titik 5 (52, 57)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-6-54-60">6. Titik 6 (54, 60)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-7-75-78">7. Titik 7 (75, 78)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-8-80-79">8. Titik 8 (80, 79)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-9-22-80">9. Titik 9 (22, 80)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#titik-10-77-25">10. Titik 10 (77, 25)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-hasil-lof">Ringkasan Hasil LOF :</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-hitung-manual">Kesimpulan Hitung Manual :</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-lof-menggunakan-python">Perhitungan LOF menggunakan Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual-vs-python">Perhitungan Manual vs Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-manual">1. Perhitungan Manual:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-menggunakan-python-sklearn">2. Perhitungan Menggunakan Python (sklearn):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan">3. Perbandingan:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-umum">4. Kesimpulan Umum:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
