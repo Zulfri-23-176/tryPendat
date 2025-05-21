@@ -1,0 +1,918 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Naive Bayes &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'NaiveBayes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ujian Tengah Semester" href="UTS_Pendat.html" />
+    <link rel="prev" title="Local Outlier Factor (LOF)" href="LOF.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/data-mining.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/data-mining.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="About_Me.html">About Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pendat_Tugas_1.html">Data Understanding</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Pendat.html">Ujian Tengah Semester</a></li>
+<li class="toctree-l1"><a class="reference internal" href="K-Means.html">K-Means Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FNaiveBayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/NaiveBayes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Naive Bayes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-naive-bayes">Pengertian Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-algoritma-naive-bayes">Manfaat Algoritma Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-algoritma-naive-bayes">Tipe Algoritma Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-penerapan-algoritma-naive-bayes">Contoh Penerapan Algoritma Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-dengan-iris-cleaned-csv">Perhitungan Dengan iris_cleaned.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1">Langkah 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2">Langkah 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3">Langkah 3:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-probabilitas-posterior">Langkah 4: Hitung Probabilitas Posterior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi-untuk-iris-cleaned-csv">Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_cleaned.csv</span></code>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-dengan-iris-combined-csv">Perhitungan dengan iris_combined.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Langkah 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Langkah 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Langkah 3:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4">Langkah 4:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi-untuk-iris-combined-csv">Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_combined.csv</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil">Perbandingan Hasil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observasi">Observasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
+<h1>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
+<section id="pengertian-naive-bayes">
+<h2>Pengertian Naive Bayes<a class="headerlink" href="#pengertian-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Dikutip dari Geeks for Geeks, algoritma Naive Bayes atau disebut juga dengan Naive Bayes Classifiers adalah kumpulan algoritma pembeda berdasarkan teorema Bayes.</p>
+<p>Sebelum membahas lebih lanjut mengenai algoritma Naive Bayes, ada dua hal yang perlu diketahui terlebih dahulu yaitu apa itu algoritma dan teorema Bayes.</p>
+<p>Dikutip dari Indicative, algoritma adalah prosedur atau formula yang disusun secara sistematis untuk membantu komputer memecahkan masalah. Naive Bayes adalah salah satu algoritma yang digunakan komputer untuk melakukan tugas tertentu.</p>
+<p>Cara kerja algoritma Naive Bayes diatur teorema Bayes yang bekerja sesuai prinsip probabilitas bersyarat (conditional probability). Probabilitas bersyarat merepresentasikan suatu probabilitas atau peluang dari suatu peristiwa, yang mengacu pada peristiwa terkait yang telah terjadi.</p>
+<p>Salah satu contoh konsep probabilitas bersyarat sederhana adalah pelemparan dua buah koin. Setiap koin memiliki dua sisi, yaitu angka dan gambar. Jadi ketika dua koin dilempar bersamaan, ada kemungkinan keduanya menunjukkan sisi yang sama atau berbeda.</p>
+<p>Diketahui ruang sampelnya adalah sebagai berikut:</p>
+<ul class="simple">
+<li><p>Koin 1 = angka; Koin 2 = gambar</p></li>
+<li><p>Koin 1 = angka; Koin 2 = angka</p></li>
+<li><p>Koin 1 = gambar; Koin 2 = angka</p></li>
+<li><p>Koin 1 = gambar; Koin 2 = gambar</p></li>
+</ul>
+<p>Jika menghitung probabilitasnya, maka probabilitas (P) kedua koin yaitu:</p>
+<ul class="simple">
+<li><p>Peluang kedua koin menunjukkan dua gambar = 1/4</p></li>
+<li><p>Peluang salah satu koin menunjukkan angka = 3/4</p></li>
+<li><p>Peluang koin kedua menunjukkan angka, dan koin pertama adalah gambar= ½</p></li>
+<li><p>Peluang koin kedua menunjukkan gambar, dan koin pertama adalah angka = ½</p></li>
+</ul>
+<p>Kemudian untuk mengetahui berapa peluang koin pertama menunjukkan angka (kejadian A), dan koin kedua menunjukkan gambar (kejadian B), maka bisa menggunakan rumus probabilitas bersyarat berikut ini:</p>
+<p><span class="math notranslate nohighlight">\(
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\)</span></p>
+<p><strong>Keterangan:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( P(A|B) \)</span> = Probabilitas bersyarat <strong>A</strong> yang diberikan oleh <strong>B</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\( P(B|A) \)</span> = Probabilitas bersyarat <strong>B</strong> yang diberikan oleh <strong>A</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\( P(A) \)</span> = Probabilitas kejadian <strong>A</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\( P(B) \)</span> = Probabilitas kejadian <strong>B</strong></p></li>
+</ul>
+<hr class="docutils" />
+<p>P(A|B) = [ P(Koin pertama angka dan koin kedua adalah gambar) * P(Koin kedua gambar) ] / P(Koin pertama angka)</p>
+<p>P(A|B) = [ (1/2) * (1/2) ] / (1/2)</p>
+<p>P(A|B) = 1/2 = 0,5</p>
+<p>Berdasarkan penghitungan, maka probabilitas bersyaratnya adalah ½ atau jika didesimalkan menjadi 0,5.</p>
+</section>
+<section id="manfaat-algoritma-naive-bayes">
+<h2>Manfaat Algoritma Naive Bayes<a class="headerlink" href="#manfaat-algoritma-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Naive Bayes termasuk dalam keluarga algoritma penambangan data, yang mengubah kumpulan data yang sangat besar menjadi informasi yang berguna.</p>
+<p>Berikut ini beberapa kegunaan algoritma Naive Bayes:</p>
+<ul class="simple">
+<li><p>Mengidentifikasi wajah dan fitur-fitur wajah, seperti mata, hidung, mulut, dan alis.</p></li>
+<li><p>Memprediksi cuaca.</p></li>
+<li><p>Membantu dokter mendiagnosis risiko penyakit pasien, seperti kanker atau penyakit jantung.</p></li>
+<li><p>Digunakan pada Google News untuk mengelompokkan suatu berita, misalnya berita tentang politik, hiburan, gaming, atau edukasi.</p></li>
+<li><p>Pada e-mail, algoritma Naive Bayes digunakan untuk mengklasifikasikan apakah pesan yang masuk adalah spam atau tidak.</p></li>
+<li><p>Menggunakan data fMRI, algoritma Naive Bayes dapat memprediksi berbagai kondisi kognitif manusia dan menemukan cedera otak.</p></li>
+</ul>
+</section>
+<section id="tipe-algoritma-naive-bayes">
+<h2>Tipe Algoritma Naive Bayes<a class="headerlink" href="#tipe-algoritma-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Dirangkum dari IBM, ada berbagai macam algoritma Naive Bayes yang dibedakan berdasarkan distribusi nilai. Tiga tipe algoritma Naive Bayes yang populer yaitu:</p>
+<ul class="simple">
+<li><p><strong>Gaussian Naive Bayes (GaussianNB)</strong></p></li>
+</ul>
+<p>Varian algoritma Naive Bayes yang menggunakan distribusi Gaussian (distribusi normal) dan variabel kontinu. Model ini digunakan untuk mencari rata-rata dan standar deviasi dari masing-masing kelas.</p>
+<ul class="simple">
+<li><p><strong>Multinomial Naive Bayes (MultinomialNB)</strong></p></li>
+</ul>
+<p>Jenis algoritma ini mengasumsikan bahwa fitur berasal dari distribusi multinomial.</p>
+<p>Varian ini berguna saat menggunakan data diskrit, seperti jumlah frekuensi, dan biasanya diterapkan dalam kasus penggunaan pemrosesan bahasa alami (natural language processing/NLP), seperti klasifikasi spam pada e-mail.</p>
+<ul class="simple">
+<li><p><strong>Bernoulli Naive Bayes (BernoulliNB)</strong></p></li>
+</ul>
+<p>Varian ini menggunakan variabel Boolean, yaitu variabel dengan dua nilai, seperti Benar dan Salah atau 1 dan 0.</p>
+</section>
+<section id="contoh-penerapan-algoritma-naive-bayes">
+<h2>Contoh Penerapan Algoritma Naive Bayes<a class="headerlink" href="#contoh-penerapan-algoritma-naive-bayes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dataset dengan Outlier: iris_combined.csv (mengandung outlier, e.g., ID 1 dengan petal length=86.4).</p></li>
+<li><p>Dataset tanpa Outlier: iris_cleaned.csv (outlier seperti ID 1 dihapus).</p></li>
+</ul>
+<p>Data Baru yang Akan Diprediksi</p>
+<p>Misalkan kita memiliki data baru dengan karakteristik berikut:</p>
+<ul class="simple">
+<li><p>Petal length: 5.0</p></li>
+<li><p>Petal width: 1.7</p></li>
+<li><p>Sepal length: 6.2</p></li>
+<li><p>Sepal width: 2.8</p></li>
+</ul>
+<section id="perhitungan-dengan-iris-cleaned-csv">
+<h3>Perhitungan Dengan iris_cleaned.csv<a class="headerlink" href="#perhitungan-dengan-iris-cleaned-csv" title="Link to this heading">#</a></h3>
+</section>
+<section id="langkah-1">
+<h3>Langkah 1:<a class="headerlink" href="#langkah-1" title="Link to this heading">#</a></h3>
+<p>Hitung Probabilitas Prior</p>
+<ul class="simple">
+<li><p><strong>Total data</strong>: 149 (karena ID 107 tidak ada)</p>
+<ul>
+<li><p><strong>Iris-setosa</strong>: 49/149 = 0.3289</p></li>
+<li><p><strong>Iris-versicolor</strong>: 50/149 = 0.3356</p></li>
+<li><p><strong>Iris-virginica</strong>: 50/149 = 0.3356</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-2">
+<h3>Langkah 2:<a class="headerlink" href="#langkah-2" title="Link to this heading">#</a></h3>
+<p>Hitung Mean dan Standar Deviasi untuk Setiap Fitur per Kelas</p>
+<p>Iris-setosa:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong>: μ = 1.46, σ = 0.17</p></li>
+<li><p><strong>Petal width</strong>: μ = 0.24, σ = 0.10</p></li>
+<li><p><strong>Sepal length</strong>: μ = 5.01, σ = 0.35</p></li>
+<li><p><strong>Sepal width</strong>: μ = 3.42, σ = 0.38</p></li>
+</ul>
+<p>Iris-versicolor:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong>: μ = 4.26, σ = 0.47</p></li>
+<li><p><strong>Petal width</strong>: μ = 1.33, σ = 0.20</p></li>
+<li><p><strong>Sepal length</strong>: μ = 5.94, σ = 0.52</p></li>
+<li><p><strong>Sepal width</strong>: μ = 2.77, σ = 0.31</p></li>
+</ul>
+<p>Iris-virginica:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong>: μ = 5.55, σ = 0.55</p></li>
+<li><p><strong>Petal width</strong>: μ = 2.03, σ = 0.27</p></li>
+<li><p><strong>Sepal length</strong>: μ = 6.59, σ = 0.64</p></li>
+<li><p><strong>Sepal width</strong>: μ = 2.97, σ = 0.32</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-3">
+<h3>Langkah 3:<a class="headerlink" href="#langkah-3" title="Link to this heading">#</a></h3>
+<p>Hitung Likelihood dengan Distribusi Normal</p>
+<p>Rumus PDF Normal:
+<span class="math notranslate nohighlight">\(
+P(x|class) = \frac{1}{\sqrt{2\pi} \cdot \sigma} \cdot \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)
+\)</span></p>
+<p>Untuk <strong>Iris-setosa</strong>:</p>
+<ul class="simple">
+<li><p>( P(5.0|setosa) ): sangat kecil ≈ 0</p></li>
+<li><p>( P(1.7|setosa) ): sangat kecil ≈ 0</p></li>
+<li><p>( P(6.2|setosa) ): sangat kecil ≈ 0</p></li>
+<li><p>( P(2.8|setosa) ): 0.37</p></li>
+</ul>
+<p>Untuk <strong>Iris-versicolor</strong>:</p>
+<ul class="simple">
+<li><p>( P(5.0|versicolor) ): 0.30</p></li>
+<li><p>( P(1.7|versicolor) ): 0.62</p></li>
+<li><p>( P(6.2|versicolor) ): 0.53</p></li>
+<li><p>( P(2.8|versicolor) ): 0.90</p></li>
+</ul>
+<p>Untuk <strong>Iris-virginica</strong>:</p>
+<ul class="simple">
+<li><p>( P(5.0|virginica) ): 0.15</p></li>
+<li><p>( P(1.7|virginica) ): 0.22</p></li>
+<li><p>( P(6.2|virginica) ): 0.54</p></li>
+<li><p>( P(2.8|virginica) ): 0.90</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-hitung-probabilitas-posterior">
+<h3>Langkah 4: Hitung Probabilitas Posterior<a class="headerlink" href="#langkah-4-hitung-probabilitas-posterior" title="Link to this heading">#</a></h3>
+<p>[
+\text{Posterior} = \text{Prior} \times \text{Product of Likelihoods}
+]</p>
+<p>\begin{align*}
+P(\text{setosa} \mid \text{data}) &amp;= 0.3289 \times 0 \times 0 \times 0 \times 0.37 = 0 \
+P(\text{versicolor} \mid \text{data}) &amp;= 0.3356 \times 0.30 \times 0.62 \times 0.53 \times 0.90 = 0.0298 \
+P(\text{virginica} \mid \text{data}) &amp;= 0.3356 \times 0.15 \times 0.22 \times 0.54 \times 0.90 = 0.0054
+\end{align*}</p>
+</section>
+<hr class="docutils" />
+<section id="hasil-prediksi-untuk-iris-cleaned-csv">
+<h3>Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_cleaned.csv</span></code>:<a class="headerlink" href="#hasil-prediksi-untuk-iris-cleaned-csv" title="Link to this heading">#</a></h3>
+<p>Kelas dengan probabilitas tertinggi adalah <strong>Iris-versicolor</strong>.</p>
+</section>
+<section id="perhitungan-dengan-iris-combined-csv">
+<h3>Perhitungan dengan iris_combined.csv<a class="headerlink" href="#perhitungan-dengan-iris-combined-csv" title="Link to this heading">#</a></h3>
+<p>Dataset ini memiliki outlier pada baris pertama (id=1) dengan nilai yang sangat besar.</p>
+</section>
+<section id="id1">
+<h3>Langkah 1:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Hitung Probabilitas Prior</p>
+<ul class="simple">
+<li><p><strong>Total data</strong>: 150</p>
+<ul>
+<li><p><strong>Iris-setosa</strong>: 50/150 = 0.3333</p></li>
+<li><p><strong>Iris-versicolor</strong>: 50/150 = 0.3333</p></li>
+<li><p><strong>Iris-virginica</strong>: 50/150 = 0.3333</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h3>Langkah 2:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Hitung Mean dan Standar Deviasi (dengan Outlier)
+Iris-setosa:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong>: μ = 2.80, σ = 12.02 (dipengaruhi outlier 86.4)</p></li>
+<li><p><strong>Petal width</strong>: μ = 1.62, σ = 9.80 (dipengaruhi outlier 70.0)</p></li>
+<li><p><strong>Sepal length</strong>: μ = 5.81, σ = 3.20 (dipengaruhi outlier 20.1)</p></li>
+<li><p><strong>Sepal width</strong>: μ = 3.72, σ = 4.50 (dipengaruhi outlier 30.5)</p></li>
+</ul>
+<p>Iris-versicolor dan Iris-virginica:</p>
+<ul class="simple">
+<li><p>Sama seperti sebelumnya karena tidak ada outlier.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h3>Langkah 3:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Hitung Likelihood</p>
+<p>Untuk <strong>Iris-setosa</strong>:
+Dengan standar deviasi yang sangat besar karena outlier, likelihood menjadi:</p>
+<ul class="simple">
+<li><p>( P(5.0|setosa) = 0.03 )</p></li>
+<li><p>( P(1.7|setosa) = 0.04 )</p></li>
+<li><p>( P(6.2|setosa) = 0.12 )</p></li>
+<li><p>( P(2.8|setosa) = 0.09 )</p></li>
+</ul>
+<p>Untuk <strong>Iris-versicolor</strong> dan <strong>Iris-virginica</strong>:</p>
+<ul class="simple">
+<li><p>Sama seperti sebelumnya.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-4">
+<h3>Langkah 4:<a class="headerlink" href="#langkah-4" title="Link to this heading">#</a></h3>
+<p>Hitung Probabilitas Posterior</p>
+<ul class="simple">
+<li><p>( P(setosa|data) ≈ 0.3333 \times 0.03 \times 0.04 \times 0.12 \times 0.09 = 4.32 \times 10^{-6} )</p></li>
+<li><p>( P(versicolor|data) ≈ 0.3333 \times 0.30 \times 0.62 \times 0.53 \times 0.90 = 0.0296 )</p></li>
+<li><p>( P(virginica|data) ≈ 0.3333 \times 0.15 \times 0.22 \times 0.54 \times 0.90 = 0.0053 )</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="hasil-prediksi-untuk-iris-combined-csv">
+<h3>Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_combined.csv</span></code><a class="headerlink" href="#hasil-prediksi-untuk-iris-combined-csv" title="Link to this heading">#</a></h3>
+<p>Kelas dengan probabilitas tertinggi tetap <strong>Iris-versicolor</strong>, tetapi probabilitas untuk setosa menjadi sangat kecil karena outlier.</p>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-hasil">
+<h3>Perbandingan Hasil<a class="headerlink" href="#perbandingan-hasil" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Metrik</strong></p></th>
+<th class="head"><p><strong>iris_cleaned.csv</strong></p></th>
+<th class="head"><p><strong>iris_combined.csv</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Prior Iris-setosa</strong></p></td>
+<td><p>0.3289</p></td>
+<td><p>0.3333</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Likelihood setosa</strong></p></td>
+<td><p>≈ 0</p></td>
+<td><p>( 4.32 \times 10^{-6} )</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Posterior versicolor</strong></p></td>
+<td><p>0.0298</p></td>
+<td><p>0.0296</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Posterior virginica</strong></p></td>
+<td><p>0.0054</p></td>
+<td><p>0.0053</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Prediksi</strong></p></td>
+<td><p>Iris-versicolor</p></td>
+<td><p>Iris-versicolor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="observasi">
+<h3>Observasi<a class="headerlink" href="#observasi" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Outlier pada <code class="docutils literal notranslate"><span class="pre">iris_combined.csv</span></code> mempengaruhi distribusi fitur untuk kelas setosa, membuat standar deviasi sangat besar.</p></li>
+<li><p>Meskipun prediksi akhir sama, nilai probabilitas untuk setosa lebih tinggi pada dataset yang dibersihkan.</p></li>
+<li><p>Outlier tidak mengubah prediksi akhir dalam kasus ini, tetapi bisa berdampak lebih signifikan untuk data baru yang lebih dekat ke batas keputusan.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h3>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h3>
+<p>Penting untuk membersihkan data dari outlier sebelum menerapkan Naive Bayes karena outlier dapat sangat mempengaruhi perhitungan mean dan standar deviasi, yang merupakan komponen kunci dalam perhitungan likelihood.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas matplotlib seaborn scikit-learn -qq
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">LabelEncoder</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_accuracy</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="c1"># Memuat data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./property/&quot;</span><span class="o">+</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="c1"># Memisahkan fitur dan target</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width&#39;</span><span class="p">]]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Encode label</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Split data</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+    <span class="c1"># Train model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Predict</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="c1"># Confusion Matrix</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
+                <span class="n">xticklabels</span><span class="o">=</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span>
+                <span class="n">yticklabels</span><span class="o">=</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;Confusion Matrix - </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s1">Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Aktual&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediksi&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Menampilkan Confusion Matrix untuk kedua dataset</span>
+<span class="n">calculate_accuracy</span><span class="p">(</span>
+    <span class="s1">&#39;iris_combined.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;iris_combined (dengan outlier)&#39;</span><span class="p">)</span>
+<span class="n">calculate_accuracy</span><span class="p">(</span>
+    <span class="s1">&#39;iris_cleaned.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;iris_cleaned (tanpa outlier)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<img alt="_images/6edb4beaff4f9c0fd8e21ef3639fe992ba14c2d65e90afecb36fb6181dfa5349.png" src="_images/6edb4beaff4f9c0fd8e21ef3639fe992ba14c2d65e90afecb36fb6181dfa5349.png" />
+<img alt="_images/09c91a6f45362d6c7b56e37226c268a1cc07457df321f0260551a5f0841657dc.png" src="_images/09c91a6f45362d6c7b56e37226c268a1cc07457df321f0260551a5f0841657dc.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="LOF.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Local Outlier Factor (LOF)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="UTS_Pendat.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ujian Tengah Semester</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-naive-bayes">Pengertian Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-algoritma-naive-bayes">Manfaat Algoritma Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-algoritma-naive-bayes">Tipe Algoritma Naive Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-penerapan-algoritma-naive-bayes">Contoh Penerapan Algoritma Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-dengan-iris-cleaned-csv">Perhitungan Dengan iris_cleaned.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1">Langkah 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2">Langkah 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3">Langkah 3:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-probabilitas-posterior">Langkah 4: Hitung Probabilitas Posterior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi-untuk-iris-cleaned-csv">Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_cleaned.csv</span></code>:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-dengan-iris-combined-csv">Perhitungan dengan iris_combined.csv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Langkah 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Langkah 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Langkah 3:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4">Langkah 4:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi-untuk-iris-combined-csv">Hasil Prediksi untuk <code class="docutils literal notranslate"><span class="pre">iris_combined.csv</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil">Perbandingan Hasil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observasi">Observasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
